@@ -39,7 +39,7 @@ This repository includes a template for build a web application that uses Flask 
       - POSTGRES_PASSWORD=<your postgres user>
       - POSTGRES_DB=<your postgres databace>
       ```
-    - copy your sql commands that you want to be executed after build to ```./init.db/initdb.sql```
+    - copy your sql files that you want to be executed after build to ```./init.db/initdb.sql```
     
 - #### Geoserver:
     - Specify the environment variables in the [```./.env```](./.env):
