@@ -18,7 +18,7 @@ This repository includes a template for build a web application that uses Flask 
 
     - copy environment variables to [```./.env```](./.env)
 
-    - change command of backend services in ```docker-compose.yaml``` according to your app structure
+    - change command of backend service in [```docker-compose.yml```](./docker-compose.yml) according to your app structure
 
 - #### React app:
     - copy your react app files to [```services/react_nginx```](./services/react_nginx) that contains [```src```](./services/react_nginx/src) & [```public```](./services/react_nginx/public) folder
