@@ -28,7 +28,7 @@ This repository includes a template for build a web application that uses Flask 
     - copy environment variables to [```./.env```](./.env)
     
 - #### Nginx:
-    - copy  [```certificate.crt```](./services/react_nginx/certificate.crt) and ```privateKey.key``` to [```services/react_nginx```](./services/react_nginx) to use ssl
+    - copy  [```certificate.crt```](./services/react_nginx/certificate.crt) and [```privateKey.key```](./services/react_nginx/privateKey.key) to [```services/react_nginx```](./services/react_nginx) to use ssl
 
     - change [```services/react_nginx/nginx.conf```](./services/react_nginx/nginx.conf) if you need
 
