@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: flask
+    build:
+      context: ./services/flask
+      dockerfile: Dockerfile
+    command: flask run --host=0.0.0.0
+    volumes:
+      - static_volume:/home/app/static
+    expose:
+      - 5000
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+    networks:
+      - backend
+      - frontend
+  frontend:
+    container_name: react_nginx
+    build:
+      context: services/react_nginx
+      dockerfile: Dockerfile
+    volumes:
+      - static_volume:/home/app/static
+    ports:
+      - 80:80
+      - 443:443
+    env_file:
+      - ./.env
+    depends_on:
+      - backend
+    networks:
+      - frontend
+  db:
+    container_name: postgres
+    build:
+      context: ./services/postgres
+      dockerfile: Dockerfile
+    expose:
+      - 5433
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    networks:
+      - backend
+  geoserver:
+    container_name: geoserver
+    build:
+      context: ./services/geoserver
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - geoserver-data:/opt/geoserver/data_dir
+    environment:
+      GEOSERVER_DATA_DIR: /opt/geoserver/data_dir
+      GEOSERVER_ADMIN_USER: ${GEOSERVER_ADMIN_USER}
+      GEOSERVER_ADMIN_PASSWORD: ${GEOSERVER_ADMIN_PASSWORD}
+      DB_BACKEND: ${POSTGRES_DB}
+      HOST: db
+      POSTGRES_PORT: 5433
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASS: ${POSTGRES_PASSWORD}
+      SSL_MODE: allow
+      POSTGRES_SCHEMA: ${POSTGRES_SCHEMA}
+      DISK_QUOTA_SIZE: 5
+    depends_on:
+      - db
+    links:
+      - db:db
+    networks:
+      - backend
+      - frontend
+
+volumes:
+  postgres_data:
+  geoserver-data:
+  static_volume:
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
