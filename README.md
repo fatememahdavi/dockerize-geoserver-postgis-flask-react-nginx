@@ -33,22 +33,21 @@ This repository includes a template for build a web application that uses Flask 
     - change [```services/react_nginx/nginx.conf```](./services/react_nginx/nginx.conf) if you need
 
 - #### Postgres - PostGis:
-    - Specify the environment variables in the [```./.env```](./.env):
+    - copy your sql files that you want to be executed after build to [```./initdb.d```](./initdb.d)
+    - Specify the following environment variables in the [```./.env```](./.env):
       ```
       - POSTGRES_USER=<your postgres user>
       - POSTGRES_PASSWORD=<your postgres password>
       - POSTGRES_DB=<your postgres database>
       ```
-    - copy your sql files that you want to be executed after build to [```./initdb.d```](./initdb.d)
     
 - #### Geoserver:
-    - Specify the environment variables in the [```./.env```](./.env):
+    - copy your geoserver data directory to [```services/geoserver/data```](./services/geoserver/data). If this directory is empty it will be populated with the standard geoserver sample data directory.
+    - Specify the following environment variables in the [```./.env```](./.env):
       ```
-      - GEOSERVER_ADMIN_USER=your geoserver admin user>
+      - GEOSERVER_ADMIN_USER=<your geoserver admin user>
       - GEOSERVER_ADMIN_PASSWORD=<your geoserver admin password>
       ```
-      
-    - copy your geoserver data directory to [```services/geoserver/data```](./services/geoserver/data). If this directory is empty it will be populated with the standard geoserver sample data directory.
     
 ## Running Locally
 - To run the application locally, run this command
