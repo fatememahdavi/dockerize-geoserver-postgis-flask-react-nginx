@@ -1,4 +1,4 @@
-# first building react project, using node base image
+# pull image
 FROM kartoza/geoserver:latest
 
 # setting working dir inside container
